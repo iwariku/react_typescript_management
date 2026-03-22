@@ -1,10 +1,38 @@
+import { useState } from 'react';
 import type { Mentor } from '../types';
 
 type Props = {
   mentors: Mentor[];
 };
 
+type SortKey = 'experienceDays' | undefined;
+type SortOrder = 'asc' | 'desc' | undefined;
+
 export const MentorList = ({ mentors }: Props) => {
+  const [sortKey, setSortKey] = useState<SortKey>(undefined);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(undefined);
+
+  const sortedMentors = [...mentors].sort((a, b) => {
+    if (sortOrder === undefined) return a.id - b.id;
+
+    // 実務経験を月表記で
+    const monthA = a.experienceDays / 30;
+    const monthB = b.experienceDays / 30;
+
+    // 昇順なら (A - B) / 降順なら(B - A)
+    return sortOrder === 'asc' ? monthA - monthB : monthB - monthA;
+  });
+
+  const toggleSort = () => {
+    if (sortOrder === undefined) {
+      setSortOrder('asc');
+    } else if (sortOrder === 'asc') {
+      setSortOrder('desc');
+    } else {
+      setSortOrder(undefined);
+    }
+  };
+
   return (
     <table className="table">
       <thead>
@@ -17,7 +45,10 @@ export const MentorList = ({ mentors }: Props) => {
           <th scope="col">電話番号</th>
           <th scope="col">趣味</th>
           <th scope="col">URL</th>
-          <th scope="col">実務経験年数</th>
+          <th onClick={toggleSort} style={{ cursor: 'pointer' }}>
+            実務経験年数
+            {sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '♢'}
+          </th>
           <th scope="col">現場で使っている言語</th>
           <th scope="col">担当できる課題番号の始め</th>
           <th scope="col">担当できる課題番号の終わり</th>
@@ -25,7 +56,7 @@ export const MentorList = ({ mentors }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {mentors.map((mentor) => (
+        {sortedMentors.map((mentor) => (
           <tr key={mentor.id}>
             <td>{mentor.name}</td>
             <td>{mentor.role}</td>
@@ -35,7 +66,7 @@ export const MentorList = ({ mentors }: Props) => {
             <td>{mentor.phone}</td>
             <td>{mentor.hobbies}</td>
             <td>{mentor.url}</td>
-            <td>{mentor.experienceDays}</td>
+            <td>{Math.floor(mentor.experienceDays / 30)}ヶ月</td>
             <td>{mentor.useLangs}</td>
             <td>{mentor.availableStartCode}</td>
             <td>{mentor.availableEndCode}</td>

@@ -5,9 +5,9 @@ import { AllUserList } from './components/AllUserList';
 import { StudentList } from './components/StudentList';
 import { MentorList } from './components/MentorList';
 
-export const UserList = () => {
-  type TabType = 'all' | 'student' | 'mentor';
+type TabType = 'all' | 'student' | 'mentor';
 
+export const UserList = () => {
   const [activeTab, setActiveTab] = useState<TabType>('all');
 
   // 過去に以下のような関数を定義していたが、タブによって結果を返すより、インスタンス化されたものをfilterかける方が可読性がいいと思った
