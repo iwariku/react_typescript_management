@@ -22,7 +22,9 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    // Reactのみで挙動が確認できるまでanyを許可
+    "noImplicitAny": false
   },
   "include": ["src"]
 }
