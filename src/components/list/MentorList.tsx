@@ -1,15 +1,13 @@
 import { useState } from 'react';
-import type { Mentor } from '../types';
+import type { Mentor } from '../../types/User';
 
 type Props = {
   mentors: Mentor[];
 };
 
-type SortKey = 'experienceDays' | undefined;
 type SortOrder = 'asc' | 'desc' | undefined;
 
 export const MentorList = ({ mentors }: Props) => {
-  const [sortKey, setSortKey] = useState<SortKey>(undefined);
   const [sortOrder, setSortOrder] = useState<SortOrder>(undefined);
 
   const sortedMentors = [...mentors].sort((a, b) => {

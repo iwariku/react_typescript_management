@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Student } from '../types';
+import type { Student } from '../../types/User';
 
 type Props = {
   students: Student[];

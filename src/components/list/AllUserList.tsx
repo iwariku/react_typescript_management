@@ -1,5 +1,4 @@
-import type { AllUser } from '../types';
-import { Mentor, Student } from '../types';
+import { AllUser, Mentor, Student } from '../../types/User';
 
 type Props = {
   allUsers: AllUser[];

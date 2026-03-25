@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { allInstances } from './data';
-import { Mentor, Student } from './types';
-import { AllUserList } from './components/AllUserList';
-import { StudentList } from './components/StudentList';
-import { MentorList } from './components/MentorList';
+import { AllUserList } from './AllUserList';
+import { StudentList } from './StudentList';
+import { MentorList } from './MentorList';
+import type { Mentor, Student } from '../../types/User';
 
 type TabType = 'all' | 'student' | 'mentor';
 
-export const UserList = () => {
+export const UserTabs = ({ allUsers }) => {
   const [activeTab, setActiveTab] = useState<TabType>('all');
 
   // 過去に以下のような関数を定義していたが、タブによって結果を返すより、インスタンス化されたものをfilterかける方が可読性がいいと思った
@@ -15,12 +14,12 @@ export const UserList = () => {
   //   if (activeTab === 'all') return true;
   //   return user.role === activeTab;
   // });
-  const allUsers = allInstances;
-  const students = allInstances.filter(
-    (user): user is Student => user instanceof Student,
+  // const allUsers = allInstances;
+  const students = allUsers.filter(
+    (user): user is Student => user.role === 'student',
   );
-  const mentors = allInstances.filter(
-    (user): user is Mentor => user instanceof Mentor,
+  const mentors = allUsers.filter(
+    (user): user is Mentor => user.role === 'mentor',
   );
 
   return (

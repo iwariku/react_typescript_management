@@ -4,7 +4,7 @@ import {
   Student,
   Mentor,
   AllUser,
-} from './types';
+} from './types/User';
 
 const USER_LIST: (StudentData | MentorData)[] = [
   {
