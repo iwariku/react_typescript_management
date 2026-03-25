@@ -49,7 +49,9 @@ export const AllUserList = ({ allUsers }: Props) => {
                 <td>{user instanceof Student ? `${user.taskCode}` : ''}</td>
                 <td>{user instanceof Student ? `${user.studyLangs}` : ''}</td>
                 <td>{user instanceof Student ? `${user.score}` : ''}</td>
-                <td>生徒仮</td>
+                <td>
+                  {user instanceof Student ? `${user.matchedMentor}` : ''}
+                </td>
 
                 <td>
                   {user instanceof Mentor ? `${user.experienceDays}` : ''}
@@ -61,7 +63,9 @@ export const AllUserList = ({ allUsers }: Props) => {
                 <td>
                   {user instanceof Mentor ? `${user.availableEndCode}` : ''}
                 </td>
-                <td>メンター仮</td>
+                <td>
+                  {user instanceof Mentor ? `${user.matchedStudent}` : ''}
+                </td>
               </tr>
             ))}
           </tbody>

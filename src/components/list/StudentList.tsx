@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Student } from '../../types/User';
+import { type Student } from '../../types/User';
 
 type Props = {
   students: Student[];
@@ -85,7 +85,7 @@ export const StudentList = ({ students }: Props) => {
             <td>{student.taskCode}</td>
             <td>{student.studyLangs}</td>
             <td>{student.score}</td>
-            <td>対応可能なメンターの処理結果</td>
+            <td>{student.matchedMentor}</td>
           </tr>
         ))}
       </tbody>

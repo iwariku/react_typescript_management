@@ -16,6 +16,7 @@ export interface StudentData extends AllUserData {
   taskCode: number;
   studyLangs: string[];
   score: number;
+  matchedMentor?: string[];
 }
 
 export interface MentorData extends AllUserData {
@@ -24,6 +25,7 @@ export interface MentorData extends AllUserData {
   useLangs: string[];
   availableStartCode: number;
   availableEndCode: number;
+  matchedStudent?: string[];
 }
 
 export class AllUser implements AllUserData {
@@ -56,6 +58,7 @@ export class Student extends AllUser implements StudentData {
   taskCode: number;
   studyLangs: string[];
   score: number;
+  matchedMentor?: string[];
 
   constructor(studentData: StudentData) {
     super(studentData);
@@ -64,6 +67,20 @@ export class Student extends AllUser implements StudentData {
     this.taskCode = studentData.taskCode;
     this.studyLangs = studentData.studyLangs;
     this.score = studentData.score;
+    this.matchedMentor = studentData.matchedMentor;
+  }
+
+  getMatchedMentorNames(allMentors: Mentor[]): string {
+    return (
+      allMentors
+        .filter(
+          (m) =>
+            this.taskCode >= m.availableStartCode &&
+            this.taskCode <= m.availableEndCode,
+        )
+        .map((m) => m.name)
+        .join(', ') || '担当メンター無し'
+    );
   }
 }
 
@@ -73,6 +90,7 @@ export class Mentor extends AllUser implements MentorData {
   useLangs: string[];
   availableStartCode: number;
   availableEndCode: number;
+  matchedStudent?: string[];
 
   constructor(mentorData: MentorData) {
     super(mentorData);
@@ -81,5 +99,19 @@ export class Mentor extends AllUser implements MentorData {
     this.useLangs = mentorData.useLangs;
     this.availableStartCode = mentorData.availableStartCode;
     this.availableEndCode = mentorData.availableEndCode;
+    this.matchedStudent = mentorData.matchedStudent;
+  }
+
+  getMatchedStudentNames(allStudent: Student[]): string {
+    return (
+      allStudent
+        .filter(
+          (s) =>
+            s.taskCode >= this.availableStartCode &&
+            s.taskCode <= this.availableEndCode,
+        )
+        .map((s) => s.name)
+        .join(', ') || '担当生徒なし'
+    );
   }
 }

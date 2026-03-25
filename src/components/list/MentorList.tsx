@@ -68,7 +68,7 @@ export const MentorList = ({ mentors }: Props) => {
             <td>{mentor.useLangs}</td>
             <td>{mentor.availableStartCode}</td>
             <td>{mentor.availableEndCode}</td>
-            <td>対応可能な生徒の処理結果</td>
+            <td>{mentor.matchedStudent}</td>
           </tr>
         ))}
       </tbody>
