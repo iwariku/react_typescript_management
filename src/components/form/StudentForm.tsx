@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { Student } from '../../types/User';
 
-export const StudentForm = ({ onAddUser }) => {
+type Props = {
+  onAddUser: (newUser: Student) => void;
+};
+
+export const StudentForm = ({ onAddUser }: Props) => {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
   const [email, setEmail] = useState('');

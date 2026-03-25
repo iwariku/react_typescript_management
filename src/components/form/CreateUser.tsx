@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { StudentForm } from './StudentForm';
 import { MentorForm } from './MentorForm';
+import type { Mentor, Student } from '../../types/User';
 
 type TabType = 'student' | 'mentor';
 
-export const CreateUser = ({ onAddUser }) => {
+type Props = {
+  onAddUser: (newUser: Student | Mentor) => void;
+};
+
+export const CreateUser = ({ onAddUser }: Props) => {
   // フォームが開いているかどうかのフラグ
   const [isOpen, setIsOpen] = useState(false);
 

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { Mentor } from '../../types/User';
 
-export const MentorForm = ({ onAddUser }) => {
+type Props = {
+  onAddUser: (newUser: Mentor) => void;
+};
+
+export const MentorForm = ({ onAddUser }: Props) => {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
   const [email, setEmail] = useState('');

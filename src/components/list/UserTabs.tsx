@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { AllUserList } from './AllUserList';
 import { StudentList } from './StudentList';
 import { MentorList } from './MentorList';
-import type { Mentor, Student } from '../../types/User';
+import type { AllUser, Mentor, Student } from '../../types/User';
 
 type TabType = 'all' | 'student' | 'mentor';
 
-export const UserTabs = ({ allUsers }) => {
+type Props = {
+  allUsers: AllUser[];
+};
+
+export const UserTabs = ({ allUsers }: Props) => {
   const [activeTab, setActiveTab] = useState<TabType>('all');
 
   // 過去に以下のような関数を定義していたが、タブによって結果を返すより、インスタンス化されたものをfilterかける方が可読性がいいと思った
