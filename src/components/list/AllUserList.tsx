@@ -20,13 +20,13 @@ export const AllUserList = ({ allUsers }: Props) => {
               <th scope="col">趣味</th>
               <th scope="col">URL</th>
 
-              <th scope="col">勉強時間</th>
+              <th scope="col">勉強時間(分)</th>
               <th scope="col">課題番号</th>
               <th scope="col">勉強中の言語</th>
               <th scope="col">ハピネススコア</th>
               <th scope="col">対応可能なメンター</th>
 
-              <th scope="col">実務経験年数</th>
+              <th scope="col">実務経験月数</th>
               <th scope="col">現場で使っている言語</th>
               <th scope="col">担当できる課題番号の始め</th>
               <th scope="col">担当できる課題番号の終わり</th>
@@ -54,7 +54,9 @@ export const AllUserList = ({ allUsers }: Props) => {
                 </td>
 
                 <td>
-                  {user instanceof Mentor ? `${user.experienceDays}` : ''}
+                  {user instanceof Mentor
+                    ? `${Math.floor(user.experienceDays / 30)}ヶ月`
+                    : ''}
                 </td>
                 <td>{user instanceof Mentor ? `${user.useLangs}` : ''}</td>
                 <td>

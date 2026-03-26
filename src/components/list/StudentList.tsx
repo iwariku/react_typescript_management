@@ -59,7 +59,7 @@ export const StudentList = ({ students }: Props) => {
             onClick={() => handleSort('studyMinutes')}
             style={{ cursor: 'pointer' }}
           >
-            勉強時間{' '}
+            勉強時間(分){' '}
             {sortKey === 'studyMinutes'
               ? sortOrder === 'asc'
                 ? '▲'

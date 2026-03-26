@@ -44,7 +44,7 @@ export const MentorList = ({ mentors }: Props) => {
           <th scope="col">趣味</th>
           <th scope="col">URL</th>
           <th onClick={toggleSort} style={{ cursor: 'pointer' }}>
-            実務経験年数
+            実務経験月数
             {sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '♢'}
           </th>
           <th scope="col">現場で使っている言語</th>
