@@ -124,7 +124,7 @@ export const StudentForm = ({ onAddUser }: Props) => {
         </div>
 
         <div className="mb-3">
-          <label>勉強時間</label>
+          <label>勉強時間(分)</label>
           <input
             required
             className="form-control"

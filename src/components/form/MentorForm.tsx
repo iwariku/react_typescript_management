@@ -124,7 +124,7 @@ export const MentorForm = ({ onAddUser }: Props) => {
         </div>
 
         <div className="mb-3">
-          <label>実務経験年数</label>
+          <label>実務経験月数</label>
           <input
             required
             className="form-control"
