@@ -55,17 +55,22 @@ export const StudentList = ({ students }: Props) => {
           <th scope="col">電話番号</th>
           <th scope="col">趣味</th>
           <th scope="col">URL</th>
-          <th onClick={() => handleSort('studyMinutes')}>
+          <th
+            onClick={() => handleSort('studyMinutes')}
+            style={{ cursor: 'pointer' }}
+          >
             勉強時間{' '}
-            {sortKey === 'studyMinutes' &&
-              (sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '🍎')}
+            {sortKey === 'studyMinutes'
+              ? sortOrder === 'asc'
+                ? '▲'
+                : '▼'
+              : '♢'}
           </th>
           <th scope="col">課題番号</th>
           <th scope="col">勉強中の言語</th>
-          <th onClick={() => handleSort('score')}>
+          <th onClick={() => handleSort('score')} style={{ cursor: 'pointer' }}>
             スコア{' '}
-            {sortKey === 'score' &&
-              (sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '🍎')}
+            {sortKey === 'score' ? (sortOrder === 'asc' ? '▲' : '▼') : '♢'}
           </th>
           <th scope="col">対応可能なメンター</th>
         </tr>
