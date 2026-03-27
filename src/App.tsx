@@ -2,10 +2,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import { CreateUser } from './components/form/CreateUser';
 import { UserTabs } from './components/list/UserTabs';
-import { useApp } from './hooks/useApp';
+import { useUsers } from './hooks/useUsers';
 
 function App() {
-  const { users, handleAddUser } = useApp();
+  const { users, handleAddUser } = useUsers();
 
   return (
     <>
