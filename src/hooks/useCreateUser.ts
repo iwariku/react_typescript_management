@@ -1,15 +1,15 @@
 // src/hooks/useCreateUser.ts
 import { useState } from 'react';
 
-type TabType = 'student' | 'mentor';
+type UserRole = 'student' | 'mentor';
 
 export const useCreateUser = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<TabType>('student');
+  const [activeTab, setActiveTab] = useState<UserRole>('student');
 
   const openForm = () => setIsOpen(true);
   const closeForm = () => setIsOpen(false);
-  const switchTab = (tab: TabType) => setActiveTab(tab);
+  const switchTab = (tab: UserRole) => setActiveTab(tab);
 
   return {
     isOpen,
