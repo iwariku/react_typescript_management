@@ -39,16 +39,16 @@ export class AllUser implements AllUserData {
   hobbies: string[];
   url: string;
 
-  constructor(userData: AllUserData) {
-    this.id = userData.id;
-    this.name = userData.name;
-    this.role = userData.role;
-    this.email = userData.email;
-    this.age = userData.age;
-    this.postCode = userData.postCode;
-    this.phone = userData.phone;
-    this.hobbies = userData.hobbies;
-    this.url = userData.url;
+  constructor(data: AllUserData) {
+    this.id = data.id;
+    this.name = data.name;
+    this.role = data.role;
+    this.email = data.email;
+    this.age = data.age;
+    this.postCode = data.postCode;
+    this.phone = data.phone;
+    this.hobbies = data.hobbies;
+    this.url = data.url;
   }
 }
 
@@ -60,14 +60,14 @@ export class Student extends AllUser implements StudentData {
   score: number;
   matchedMentor?: string[];
 
-  constructor(studentData: StudentData) {
-    super(studentData);
-    this.role = studentData.role;
-    this.studyMinutes = studentData.studyMinutes;
-    this.taskCode = studentData.taskCode;
-    this.studyLangs = studentData.studyLangs;
-    this.score = studentData.score;
-    this.matchedMentor = studentData.matchedMentor;
+  constructor(data: StudentData) {
+    super({ ...data, role: 'student' });
+    this.role = 'student';
+    this.studyMinutes = data.studyMinutes;
+    this.taskCode = data.taskCode;
+    this.studyLangs = data.studyLangs;
+    this.score = data.score;
+    this.matchedMentor = data.matchedMentor;
   }
 
   getMatchedMentorNames(allMentors: Mentor[]): string {
@@ -92,14 +92,14 @@ export class Mentor extends AllUser implements MentorData {
   availableEndCode: number;
   matchedStudent?: string[];
 
-  constructor(mentorData: MentorData) {
-    super(mentorData);
-    this.role = mentorData.role;
-    this.experienceDays = mentorData.experienceDays;
-    this.useLangs = mentorData.useLangs;
-    this.availableStartCode = mentorData.availableStartCode;
-    this.availableEndCode = mentorData.availableEndCode;
-    this.matchedStudent = mentorData.matchedStudent;
+  constructor(data: MentorData) {
+    super({ ...data, role: 'mentor' });
+    this.role = 'mentor';
+    this.experienceDays = data.experienceDays;
+    this.useLangs = data.useLangs;
+    this.availableStartCode = data.availableStartCode;
+    this.availableEndCode = data.availableEndCode;
+    this.matchedStudent = data.matchedStudent;
   }
 
   getMatchedStudentNames(allStudent: Student[]): string {
