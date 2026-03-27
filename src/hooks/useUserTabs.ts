@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { AllUser, Mentor, Student } from '../types/User';
+import { Mentor, Student, type AllUser } from '../types/User';
 
 type TabType = 'all' | 'student' | 'mentor';
 
@@ -25,19 +25,31 @@ export const useUserTabs = ({ allUsers }: Props) => {
   const students = rawStudents.map((s) => {
     const matchedMentorNames = s.getMatchedMentorNames(rawMentors);
 
-    // 2. インスタンスのプロパティ(matchedMentor)に直接代入
+    // 2-1 インスタンスのプロパティ(matchedMentor)に直接代入
     // ...s というインスタンスのコピーしてオブジェクトを作成すると、メソッドが消えてしまう
     // StudentDataでmatchedMentorはstring[]と定義されているので、配列にして入れます
-    s.matchedMentor = [matchedMentorNames];
 
-    // 3. インスタンスそのものを返す（これで型が Student のまま維持される）
-    return s;
+    // 2-2. stateを直接変更するのは「Stateは不変に扱う」とう原則に反するため、以下の文は使わない。
+    // s.matchedMentor = [matchedMentorNames];
+
+    // 2-3 1と2の理由により、新しいインスタンスを作成するやり方にする
+    // s を展開しつつ、対応するメンターを上書きしたオブジェクトを渡す
+    const newStudent = new Student({
+      ...s,
+      matchedMentor: [matchedMentorNames],
+    });
+
+    // 3. 新しく作成したインスタンスを返す（これで型が Student のまま維持される）
+    return newStudent;
   });
 
   const mentors = rawMentors.map((m) => {
     const matchedStudentNames = m.getMatchedStudentNames(rawStudents);
-    m.matchedStudent = [matchedStudentNames];
-    return m;
+    const newMentor = new Mentor({
+      ...m,
+      matchedStudent: [matchedStudentNames],
+    });
+    return newMentor;
   });
 
   return {
