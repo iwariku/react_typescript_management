@@ -6,7 +6,7 @@ export interface AllUserData {
   age: number;
   postCode: string;
   phone: string;
-  hobbies: string[];
+  hobbies: string | string[];
   url: string;
 }
 
@@ -14,7 +14,7 @@ export interface StudentData extends AllUserData {
   role: 'student';
   studyMinutes: number;
   taskCode: number;
-  studyLangs: string[];
+  studyLangs: string | string[];
   score: number;
   matchedMentor?: string[];
 }
@@ -22,7 +22,7 @@ export interface StudentData extends AllUserData {
 export interface MentorData extends AllUserData {
   role: 'mentor';
   experienceDays: number;
-  useLangs: string[];
+  useLangs: string | string[];
   availableStartCode: number;
   availableEndCode: number;
   matchedStudent?: string[];
@@ -36,7 +36,7 @@ export class AllUser implements AllUserData {
   age: number;
   postCode: string;
   phone: string;
-  hobbies: string[];
+  hobbies: string | string[];
   url: string;
 
   constructor(data: AllUserData) {
@@ -56,7 +56,7 @@ export class Student extends AllUser implements StudentData {
   role: 'student';
   studyMinutes: number;
   taskCode: number;
-  studyLangs: string[];
+  studyLangs: string | string[];
   score: number;
   matchedMentor?: string[];
 
@@ -87,7 +87,7 @@ export class Student extends AllUser implements StudentData {
 export class Mentor extends AllUser implements MentorData {
   role: 'mentor';
   experienceDays: number;
-  useLangs: string[];
+  useLangs: string | string[];
   availableStartCode: number;
   availableEndCode: number;
   matchedStudent?: string[];

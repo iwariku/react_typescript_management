@@ -1,47 +1,58 @@
 import React, { useState } from 'react';
-import { Mentor } from '../../types/User';
+import { Mentor, type MentorData } from '../../types/User';
 
 type Props = {
   onAddUser: (newUser: Mentor) => void;
 };
 
 export const MentorForm = ({ onAddUser }: Props) => {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState(0);
-  const [email, setEmail] = useState('');
-  const [postCode, setPostCode] = useState('');
-  const [phone, setPhone] = useState('');
-  const [hobbies, setHobbies] = useState('');
-  const [url, setUrl] = useState('');
+  const initialMentorValues: MentorData = {
+    id: 0,
+    name: '',
+    role: 'mentor' as const,
+    email: '',
+    age: 0,
+    postCode: '',
+    phone: '',
+    hobbies: [],
+    url: '',
+    experienceDays: 0,
+    useLangs: [],
+    availableStartCode: 0,
+    availableEndCode: 0,
+  };
 
-  const [experienceDays, setExperienceDays] = useState(0);
-  const [useLangs, setUseLangs] = useState('');
-  const [availableStartCode, setAvailableStartCode] = useState(0);
-  const [availableEndCode, setAvailableEndCode] = useState(0);
+  const [field, setField] = useState<MentorData>(initialMentorValues);
+
+  const onChangeField = <K extends keyof MentorData>(
+    key: K,
+    value: MentorData[K],
+  ) => {
+    setField((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hobbyArray = hobbies.split(',').map((s) => s.trim());
-    const useLangsArray = useLangs.split(',').map((s) => s.trim());
+    const hobbiesStr = Array.isArray(field.hobbies)
+      ? field.hobbies.join(',') // 万が一配列だった場合は文字列に戻す（安全策）
+      : field.hobbies; // 文字列ならそのまま使う
 
-    const dataForMentor = {
+    const useLangsStr = Array.isArray(field.useLangs)
+      ? field.useLangs.join(',')
+      : field.useLangs;
+
+    const hobbyArray = hobbiesStr.split(',').map((s) => s.trim());
+    const useLangArray = useLangsStr.split(',').map((s) => s.trim());
+
+    const mentorParams: MentorData = {
+      ...field,
       id: Date.now(),
-      name: name,
-      role: 'mentor' as const,
-      email: email,
-      age: age,
-      postCode: postCode,
-      phone: phone,
       hobbies: hobbyArray,
-      url: url,
-      experienceDays: experienceDays,
-      useLangs: useLangsArray,
-      availableStartCode: availableStartCode,
-      availableEndCode: availableEndCode,
+      useLangs: useLangArray,
     };
 
-    const newMentor = new Mentor(dataForMentor);
+    const newMentor = new Mentor(mentorParams);
     onAddUser(newMentor);
 
     alert('追加できました');
@@ -57,8 +68,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={field.name}
+            onChange={(e) => onChangeField('name', e.target.value)}
           />
         </div>
 
@@ -67,8 +78,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={field.email}
+            onChange={(e) => onChangeField('email', e.target.value)}
           />
         </div>
 
@@ -78,8 +89,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={age}
-            onChange={(e) => setAge(parseInt(e.target.value))}
+            value={field.age}
+            onChange={(e) => onChangeField('age', parseInt(e.target.value))}
           />
         </div>
 
@@ -88,8 +99,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={postCode}
-            onChange={(e) => setPostCode(e.target.value)}
+            value={field.postCode}
+            onChange={(e) => onChangeField('postCode', e.target.value)}
           />
         </div>
 
@@ -98,8 +109,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={field.phone}
+            onChange={(e) => onChangeField('phone', e.target.value)}
           />
         </div>
 
@@ -108,8 +119,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={hobbies}
-            onChange={(e) => setHobbies(e.target.value)}
+            value={field.hobbies}
+            onChange={(e) => onChangeField('hobbies', e.target.value)}
           />
         </div>
 
@@ -118,8 +129,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={field.url}
+            onChange={(e) => onChangeField('url', e.target.value)}
           />
         </div>
 
@@ -129,8 +140,10 @@ export const MentorForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={experienceDays}
-            onChange={(e) => setExperienceDays(parseInt(e.target.value))}
+            value={field.experienceDays}
+            onChange={(e) =>
+              onChangeField('experienceDays', parseInt(e.target.value))
+            }
           />
         </div>
 
@@ -139,8 +152,8 @@ export const MentorForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={useLangs}
-            onChange={(e) => setUseLangs(e.target.value)}
+            value={field.useLangs}
+            onChange={(e) => onChangeField('useLangs', e.target.value)}
           />
         </div>
 
@@ -150,8 +163,10 @@ export const MentorForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={availableStartCode}
-            onChange={(e) => setAvailableStartCode(parseInt(e.target.value))}
+            value={field.availableStartCode}
+            onChange={(e) =>
+              onChangeField('availableStartCode', parseInt(e.target.value))
+            }
           />
         </div>
 
@@ -161,8 +176,10 @@ export const MentorForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={availableEndCode}
-            onChange={(e) => setAvailableEndCode(parseInt(e.target.value))}
+            value={field.availableEndCode}
+            onChange={(e) =>
+              onChangeField('availableEndCode', parseInt(e.target.value))
+            }
           />
         </div>
 

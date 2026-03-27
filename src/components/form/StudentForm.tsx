@@ -1,50 +1,62 @@
 import React, { useState } from 'react';
-import { Student } from '../../types/User';
+import { Student, type StudentData } from '../../types/User';
 
 type Props = {
   onAddUser: (newUser: Student) => void;
 };
 
 export const StudentForm = ({ onAddUser }: Props) => {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState(0);
-  const [email, setEmail] = useState('');
-  const [postCode, setPostCode] = useState('');
-  const [phone, setPhone] = useState('');
-  const [hobbies, setHobbies] = useState('');
-  const [url, setUrl] = useState('');
+  const initialStudentValues: StudentData = {
+    id: 0,
+    name: '',
+    role: 'student' as const,
+    email: '',
+    age: 0,
+    postCode: '',
+    phone: '',
+    hobbies: [],
+    url: '',
+    studyMinutes: 0,
+    taskCode: 0,
+    studyLangs: [],
+    score: 0,
+  };
 
-  const [studyMinutes, setStudyMinutes] = useState(0);
-  const [taskCode, setTaskCode] = useState(0);
-  const [studyLangs, setStudyLangs] = useState('');
-  const [score, setScore] = useState(0);
+  const [field, setField] = useState<StudentData>(initialStudentValues);
+
+  const onChangeField = <K extends keyof StudentData>(
+    key: K,
+    value: StudentData[K],
+  ) => {
+    setField((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hobbyArray = hobbies.split(',').map((s) => s.trim());
-    const studyLangArray = studyLangs.split(',').map((s) => s.trim());
+    const hobbiesStr = Array.isArray(field.hobbies)
+      ? field.hobbies.join(',') // 万が一配列だった場合は文字列に戻す（安全策）
+      : field.hobbies; // 文字列ならそのまま使う
 
-    const dataForStudent = {
+    const studyLangsStr = Array.isArray(field.studyLangs)
+      ? field.studyLangs.join(',')
+      : field.studyLangs;
+
+    const hobbyArray = hobbiesStr.split(',').map((s) => s.trim());
+    const studyLangArray = studyLangsStr.split(',').map((s) => s.trim());
+
+    const studentParams: StudentData = {
+      ...field,
       id: Date.now(),
-      name: name,
-      role: 'student' as const,
-      email: email,
-      age: age,
-      postCode: postCode,
-      phone: phone,
       hobbies: hobbyArray,
-      url: url,
-      studyMinutes: studyMinutes,
-      taskCode: taskCode,
       studyLangs: studyLangArray,
-      score: score,
     };
 
-    const newStudent = new Student(dataForStudent);
+    const newStudent = new Student(studentParams);
     onAddUser(newStudent);
 
     alert('追加できました');
+    console.log(newStudent);
   };
 
   return (
@@ -57,8 +69,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={field.name}
+            onChange={(e) => onChangeField('name', e.target.value)}
           />
         </div>
 
@@ -67,8 +79,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={field.email}
+            onChange={(e) => onChangeField('email', e.target.value)}
           />
         </div>
 
@@ -78,8 +90,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={age}
-            onChange={(e) => setAge(parseInt(e.target.value))}
+            value={field.age}
+            onChange={(e) => onChangeField('age', parseInt(e.target.value))}
           />
         </div>
 
@@ -88,8 +100,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={postCode}
-            onChange={(e) => setPostCode(e.target.value)}
+            value={field.postCode}
+            onChange={(e) => onChangeField('postCode', e.target.value)}
           />
         </div>
 
@@ -98,8 +110,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={field.phone}
+            onChange={(e) => onChangeField('phone', e.target.value)}
           />
         </div>
 
@@ -108,8 +120,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={hobbies}
-            onChange={(e) => setHobbies(e.target.value)}
+            value={field.hobbies}
+            onChange={(e) => onChangeField('hobbies', e.target.value)}
           />
         </div>
 
@@ -118,8 +130,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={field.url}
+            onChange={(e) => onChangeField('url', e.target.value)}
           />
         </div>
 
@@ -129,8 +141,10 @@ export const StudentForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={studyMinutes}
-            onChange={(e) => setStudyMinutes(parseInt(e.target.value))}
+            value={field.studyMinutes}
+            onChange={(e) =>
+              onChangeField('studyMinutes', parseInt(e.target.value))
+            }
           />
         </div>
 
@@ -140,8 +154,10 @@ export const StudentForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={taskCode}
-            onChange={(e) => setTaskCode(parseInt(e.target.value))}
+            value={field.taskCode}
+            onChange={(e) =>
+              onChangeField('taskCode', parseInt(e.target.value))
+            }
           />
         </div>
 
@@ -150,8 +166,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
           <input
             required
             className="form-control"
-            value={studyLangs}
-            onChange={(e) => setStudyLangs(e.target.value)}
+            value={field.studyLangs}
+            onChange={(e) => onChangeField('studyLangs', e.target.value)}
           />
         </div>
 
@@ -161,8 +177,8 @@ export const StudentForm = ({ onAddUser }: Props) => {
             required
             className="form-control"
             type="number"
-            value={score}
-            onChange={(e) => setScore(parseInt(e.target.value))}
+            value={field.score}
+            onChange={(e) => onChangeField('score', parseInt(e.target.value))}
           />
         </div>
 

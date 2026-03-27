@@ -8,9 +8,10 @@ type Props = {
 };
 
 export const UserTabs = ({ allUsers }: Props) => {
-  const { activeTab, setActiveTab, students, mentors } = useUserTabs({
-    allUsers,
-  });
+  const { activeTab, setActiveTab, students, mentors, displayAllUsers } =
+    useUserTabs({
+      allUsers,
+    });
 
   return (
     <>
@@ -59,7 +60,7 @@ export const UserTabs = ({ allUsers }: Props) => {
         </label>
       </div>
 
-      {activeTab === 'all' && <AllUserList allUsers={allUsers} />}
+      {activeTab === 'all' && <AllUserList allUsers={displayAllUsers} />}
       {activeTab === 'student' && <StudentList students={students} />}
       {activeTab === 'mentor' && <MentorList mentors={mentors} />}
     </>

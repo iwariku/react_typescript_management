@@ -52,10 +52,13 @@ export const useUserTabs = ({ allUsers }: Props) => {
     return newMentor;
   });
 
+  const displayAllUsers = [...students, ...mentors].sort((a, b) => a.id - b.id);
+
   return {
     activeTab,
     setActiveTab,
     students,
     mentors,
+    displayAllUsers,
   };
 };

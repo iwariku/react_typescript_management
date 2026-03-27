@@ -9,6 +9,7 @@ export const useUsers = () => {
 
   //
   const handleAddUser = (newUser: Student | Mentor) => {
+    console.log(newUser);
     setUsers([...users, newUser]);
   };
 
