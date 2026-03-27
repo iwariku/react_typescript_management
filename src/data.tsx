@@ -3,7 +3,6 @@ import {
   type MentorData,
   Student,
   Mentor,
-  AllUser,
 } from './types/User';
 
 const USER_LIST: (StudentData | MentorData)[] = [
@@ -129,8 +128,10 @@ const USER_LIST: (StudentData | MentorData)[] = [
   },
 ];
 
-export const allInstances = USER_LIST.map((user: StudentData | MentorData) => {
-  if (user.role === 'student') return new Student(user);
-  if (user.role === 'mentor') return new Mentor(user);
-  return new AllUser(user);
+export const initialUsers = USER_LIST.map((user: StudentData | MentorData) => {
+  // 以下のif文だとundefinedが返却される可能性があります。該当する型だけにしてください。というエラーが発生するため三項演算子を採用
+  // if (user.role === 'student') return new Student(user);
+  // if (user.role === 'mentor') return new Mentor(user);
+
+  return user.role === 'student' ? new Student(user) : new Mentor(user);
 });
