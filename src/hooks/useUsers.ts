@@ -7,10 +7,8 @@ export const useUsers = () => {
   // すべてのトップになるので、共通の親クラスであるAllUser型にする
   const [users, setUsers] = useState<(Student | Mentor)[]>(initialUsers);
 
-  //
   const handleAddUser = (newUser: Student | Mentor) => {
-    console.log(newUser);
-    setUsers([...users, newUser]);
+    setUsers((currentUsers) => [...currentUsers, newUser]);
   };
 
   return {
