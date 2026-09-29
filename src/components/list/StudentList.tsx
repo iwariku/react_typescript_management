@@ -11,7 +11,8 @@ export const StudentList = ({ students }: Props) => {
   });
 
   return (
-    <table className="table">
+    <div className="table-responsive">
+      <table className="table">
       <thead>
         <tr>
           <th scope="col">名前</th>
@@ -58,6 +59,7 @@ export const StudentList = ({ students }: Props) => {
           </tr>
         ))}
       </tbody>
-    </table>
+      </table>
+    </div>
   );
 };

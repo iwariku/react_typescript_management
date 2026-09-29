@@ -9,7 +9,8 @@ export const MentorList = ({ mentors }: Props) => {
   const { sortOrder, sortedMentors, handleSort } = useMentorSort({ mentors });
 
   return (
-    <table className="table">
+    <div className="table-responsive">
+      <table className="table">
       <thead>
         <tr>
           <th scope="col">名前</th>
@@ -51,6 +52,7 @@ export const MentorList = ({ mentors }: Props) => {
           </tr>
         ))}
       </tbody>
-    </table>
+      </table>
+    </div>
   );
 };
