@@ -18,7 +18,7 @@ export const UserTabs = ({ allUsers }: Props) => {
       <div
         className="btn-group"
         role="group"
-        aria-label="ユーザー一覧の切り替え"
+        aria-label="ユーザー種別の切り替え"
       >
         <input
           type="radio"
