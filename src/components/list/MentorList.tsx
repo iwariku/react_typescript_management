@@ -20,9 +20,11 @@ export const MentorList = ({ mentors }: Props) => {
           <th scope="col">電話番号</th>
           <th scope="col">趣味</th>
           <th scope="col">URL</th>
-          <th onClick={handleSort} style={{ cursor: 'pointer' }}>
-            実務経験月数
-            {sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '♢'}
+          <th scope="col" aria-sort={sortOrder === 'asc' ? 'ascending' : sortOrder === 'desc' ? 'descending' : 'none'}>
+            <button type="button" className="btn btn-link p-0" onClick={handleSort}>
+              実務経験月数
+              {sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '♢'}
+            </button>
           </th>
           <th scope="col">現場で使っている言語</th>
           <th scope="col">担当できる課題番号の始め</th>
