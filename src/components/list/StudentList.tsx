@@ -22,22 +22,19 @@ export const StudentList = ({ students }: Props) => {
           <th scope="col">電話番号</th>
           <th scope="col">趣味</th>
           <th scope="col">URL</th>
-          <th
-            onClick={() => handleSort('studyMinutes')}
-            style={{ cursor: 'pointer' }}
-          >
-            勉強時間(分){' '}
-            {sortKey === 'studyMinutes'
-              ? sortOrder === 'asc'
-                ? '▲'
-                : '▼'
-              : '♢'}
+          <th scope="col" aria-sort={sortKey === 'studyMinutes' ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}>
+            <button type="button" className="btn btn-link p-0" onClick={() => handleSort('studyMinutes')}>
+              勉強時間(分){' '}
+              {sortKey === 'studyMinutes' ? (sortOrder === 'asc' ? '▲' : '▼') : '♢'}
+            </button>
           </th>
           <th scope="col">課題番号</th>
           <th scope="col">勉強中の言語</th>
-          <th onClick={() => handleSort('score')} style={{ cursor: 'pointer' }}>
-            スコア{' '}
-            {sortKey === 'score' ? (sortOrder === 'asc' ? '▲' : '▼') : '♢'}
+          <th scope="col" aria-sort={sortKey === 'score' ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}>
+            <button type="button" className="btn btn-link p-0" onClick={() => handleSort('score')}>
+              スコア{' '}
+              {sortKey === 'score' ? (sortOrder === 'asc' ? '▲' : '▼') : '♢'}
+            </button>
           </th>
           <th scope="col">対応可能なメンター</th>
         </tr>
