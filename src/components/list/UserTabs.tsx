@@ -30,7 +30,7 @@ export const UserTabs = ({ allUsers }: Props) => {
           onChange={() => setActiveTab('all')}
         />
         <label className="btn btn-outline-primary" htmlFor="btnradio1">
-          全員
+          全員 ({displayAllUsers.length})
         </label>
 
         <input
@@ -43,7 +43,7 @@ export const UserTabs = ({ allUsers }: Props) => {
           onChange={() => setActiveTab('student')}
         />
         <label className="btn btn-outline-primary" htmlFor="btnradio2">
-          生徒のみ
+          生徒のみ ({students.length})
         </label>
 
         <input
@@ -56,7 +56,7 @@ export const UserTabs = ({ allUsers }: Props) => {
           onChange={() => setActiveTab('mentor')}
         />
         <label className="btn btn-outline-primary" htmlFor="btnradio3">
-          メンターのみ
+          メンターのみ ({mentors.length})
         </label>
       </div>
 
