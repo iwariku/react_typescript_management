@@ -3,6 +3,8 @@
 
 アプリの実装は `src/` ディレクトリにあります。
 
+ローカルでは `npm install` の後に `npm run dev` で起動できます。
+
 ## 使用技術
 - React 19.2.4
 - TypeScript 5.9.3
